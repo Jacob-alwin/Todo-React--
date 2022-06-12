@@ -1,6 +1,29 @@
+Preview: https://62a654371ac5a02cb7301bcb--sticky-todo-react.netlify.app/
+
+
+
+
+![Opera Snapshot_2022-06-13_030146_localhost](https://user-images.githubusercontent.com/85372115/173254681-68b29548-3bfc-4121-b090-531ef1941533.png)
+
+
+
+
+https://user-images.githubusercontent.com/85372115/173254697-f0a54cee-e18b-4f69-a82b-63cbd6f40974.mp4
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
 
 ## Available Scripts
 
