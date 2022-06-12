@@ -27,7 +27,6 @@ export class Container extends Component {
         this.setState({
             searchKey: key.searchKey
         })
-        console.log(this.state.searchKey);
     }
 
     changeArchive = () => {
@@ -42,7 +41,6 @@ export class Container extends Component {
 
         const addTask = () => {
             const id = Math.random()
-            console.log(this.state.todoList);
 
 
             const title = this.titleRef.current.value;
@@ -190,7 +188,7 @@ export class Container extends Component {
                 <Header search={this.search} changeArchive={this.changeArchive} />
                 <div className="row" style={{marginBottom:"2%"}}>
 
-                    <div className="col-lg-5">
+                    <div className="col-lg-5 mt-2">
                         <div type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
 
@@ -207,7 +205,7 @@ export class Container extends Component {
 
                                 {this.state.todoList.filter((items => items.title.toLowerCase().startsWith(this.state.searchKey.toLowerCase()))).map((items, index) => {
 
-                                    return <div className="dropdown" key={index}>
+                                    return <div className="dropdown" key={index} >
                                         <div type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             {this.state.archieve ? (<TodoNotes key={index} items={items} />) : (items.hide ? null : <TodoNotes key={index} items={items} />)}
                                         </div>
@@ -227,13 +225,14 @@ export class Container extends Component {
                                         </ul>
 
                                     </div>
+                                   
                                 }) 
                                 }
 
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-4 mt-2">
                         <Heading heading={'In Progress'} color={"#FFFF5C"} id={"progress"} />
                         <div className="card card-content-progress shadow-sm p-3 mb-0 bg-body " >
                             <div className="card-body card-body-content">
@@ -267,7 +266,7 @@ export class Container extends Component {
                         </div>
 
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mt-2">
                         <Heading heading={'Done'} color={"#5CFF5C"} id={"done"} />
                         <div className="card card-content-done shadow-sm p-3 mb-0 bg-body " >
                             <div className="card-body card-body-content">

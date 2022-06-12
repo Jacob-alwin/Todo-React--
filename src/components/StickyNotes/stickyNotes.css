@@ -2,10 +2,10 @@
 .sticky-container {
     max-width: 150px;
     position: relative;
+    margin: 0;
   }
   
   .sticky-outer {
-    display: flex;
     padding-top: 92.5925926%;
     position: relative;
   
