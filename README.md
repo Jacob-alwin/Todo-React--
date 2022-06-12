@@ -8,7 +8,9 @@ Preview: https://62a654371ac5a02cb7301bcb--sticky-todo-react.netlify.app/
 
 
 
-https://user-images.githubusercontent.com/85372115/173254697-f0a54cee-e18b-4f69-a82b-63cbd6f40974.mp4
+
+https://user-images.githubusercontent.com/85372115/173254784-6b68cc8b-6d83-43a4-8c93-1a76d82dca78.mp4
+
 
 
 
