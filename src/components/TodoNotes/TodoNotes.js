@@ -18,6 +18,9 @@ function TodoNotes({items}) {
       <div className="sticky-content-todo">
         {items.title}<br/>
         {items.details}
+        {
+        items.hide?<i className='bi-archive' style={{position: 'absolute',top: 35, right:20}}></i>:null
+        }
       </div>
     </div>
   </div>
