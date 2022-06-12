@@ -1,0 +1,125 @@
+/* Some positioning and ratios */
+.sticky-container {
+    max-width: 150px;
+    position: relative;
+  }
+  
+  .sticky-outer {
+    display: flex;
+    padding-top: 92.5925926%;
+    position: relative;
+  
+    width: 100%;
+  }
+  
+  .sticky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  /* Shadow behind the sticky note */
+  .sticky:before {
+    box-shadow: -2px 2px 15px 0 rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.25);
+    content: '';
+    width: 90%;
+    left: 5px;
+    height: 83%;
+    position: absolute;
+    top: 30%;
+  }
+  
+  /* The sticky note itself */
+  .sticky-content-todo {
+    background: linear-gradient(
+      180deg,
+      rgba(187, 235, 255, 1) 0%,
+      rgba(187, 235, 255, 1) 12%,
+      rgba(170, 220, 241, 1) 75%,
+      rgba(195, 229, 244, 1) 100%
+    );
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+  
+    clip-path: url(#stickyClip);
+  }
+
+  .sticky-content-progress {
+    background: linear-gradient(
+      180deg,
+      rgb(255,255,92) 0%,
+      rgb(255,255,92) 12%,
+      rgb(255,255,92) 75%,
+      rgb(255,255,92) 100%
+    );
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+  
+    clip-path: url(#stickyClip);
+  }
+
+  .sticky-content-done {
+    background: linear-gradient(
+      180deg,
+      rgb(92,255,92) 0%,
+      rgb(92,255,92) 12%,
+      rgb(92,255,92) 75%,
+      rgb(92,255,92) 100%
+    );
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Kalam', cursive;
+    font-size: 15px;
+  
+    clip-path: url(#stickyClip);
+  }
+  
+  /* Add responsiveness */
+  @media screen and (min-width: 640px) {
+    .sticky:before {
+      height: 55%;
+      width: 60%;
+    }
+    .sticky-content {
+      font-size: 8px;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .sticky:before {
+      height: 65%;
+      width: 80%;
+    }
+    .sticky-content {
+      font-size: 10px;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .sticky:before {
+      height: 73%;
+      width: 90%;
+    }
+    .sticky-content {
+      font-size: 15px;
+    }
+  }

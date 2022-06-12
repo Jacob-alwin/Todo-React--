@@ -1,0 +1,27 @@
+.container{
+    margin-top:3%
+}
+
+.card-content-todo{
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #B8E8FC;
+}
+
+
+.card-content-done{
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #5CFF5C;
+}
+
+.card-content-progress{
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #FFFF5C;
+}
+
+
