@@ -212,8 +212,8 @@ export class Container extends Component {
 
                                         <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
                                             <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("todo", items.id) }}>{"Progress > "} </button>
-                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("todo", items.id) }}>{"Done >"} </button>
+                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("todo", items.id) }}>{"Progress >> "} </button>
+                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("todo", items.id) }}>{"Done >>"} </button>
 
                                             </div>
                                             </li>
@@ -246,8 +246,8 @@ export class Container extends Component {
 
                                         <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
                                             <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("prog", items.id) }}>{"Todo < "} </button>
-                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("prog", items.id) }}>{"Done >"} </button>
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("prog", items.id) }}>{"Todo << "} </button>
+                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("prog", items.id) }}>{"Done >>"} </button>
 
                                             </div>
                                             </li>
@@ -280,8 +280,8 @@ export class Container extends Component {
 
                                         <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
                                             <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("done", items.id) }}>{"Todo <"} </button>
-                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("done", items.id) }}>{"Progress < "} </button>
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("done", items.id) }}>{"Todo <<"} </button>
+                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("done", items.id) }}>{"Progress << "} </button>
 
                                             </div>
                                             </li>
