@@ -4,14 +4,18 @@ import Heading from '../Heading/Heading'
 import TodoNotes from '../TodoNotes/TodoNotes'
 import DoneNotes from '../DoneNotes/DoneNotes'
 import ProgressNotes from '../ProgressNotes/ProgressNotes'
+import Header from '../Header/Header'
 
 export class Container extends Component {
 
     state = {
-        todoList: [{id:1, title: "First", details: "Do this shit", hide:false },{id:2, title: "First", details: "Do this shit", hide:false },],
-        progressList: [{id:2, title: "First", details: "Do this shit" },],
-        doneList: [{id:3, title: "First", details: "Do this shit" },],
-        newTask: { id: null, title: null, details: null }
+        todoList: [{ id: 1, title: "First", details: "Step 1", hide: false },],
+        progressList: [{ id: 2, title: "Second", details: "Step 2" },],
+        doneList: [{ id: 3, title: "Third", details: "Step 3" },],
+        newTask: { id: null, title: null, details: null },
+        searchKey: '',
+        archieve: false,
+
     }
     constructor(props) {
         super(props);
@@ -19,9 +23,22 @@ export class Container extends Component {
         this.titleRef = React.createRef();
         this.detailsRef = React.createRef();
     }
+    search = (key) => {
+        this.setState({
+            searchKey: key.searchKey
+        })
+        console.log(this.state.searchKey);
+    }
+
+    changeArchive = () => {
+        this.setState({
+            archieve: !this.state.archieve
+        })
+    }
 
 
     render() {
+
 
         const addTask = () => {
             const id = Math.random()
@@ -38,126 +55,140 @@ export class Container extends Component {
             })
         }
 
-        const toProgress=(from,id)=>{
+        const toProgress = (from, id) => {
 
-            if(from==='todo'){
-                let task= this.state.todoList.filter((items)=>items.id===id)
-                const newTodoList= this.state.todoList.filter((items)=>items.id!==id)
-                
+            if (from === 'todo') {
+                let task = this.state.todoList.filter((items) => items.id === id)
+                const newTodoList = this.state.todoList.filter((items) => items.id !== id)
+
 
                 this.setState({
-                    todoList:newTodoList,
-                    progressList:[...this.state.progressList,task[0]]
+                    todoList: newTodoList,
+                    progressList: [...this.state.progressList, task[0]]
                 })
 
+            }
+            else {
+                let task = this.state.doneList.filter((items) => items.id === id)
+                const newTodoList = this.state.doneList.filter((items) => items.id !== id)
+
+
+                this.setState({
+                    doneList: newTodoList,
+                    progressList: [...this.state.progressList, task[0]]
+                })
+
+            }
+
+        }
+
+        const toTodo = (from, id) => {
+
+            if (from === 'prog') {
+                let task = this.state.progressList.filter((items) => items.id === id)
+                const newProgList = this.state.progressList.filter((items) => items.id !== id)
+
+
+                this.setState({
+                    progressList: newProgList,
+                    todoList: [...this.state.todoList, task[0]]
+                })
+
+            }
+            else {
+                let task = this.state.doneList.filter((items) => items.id === id)
+                const newDoneList = this.state.doneList.filter((items) => items.id !== id)
+
+
+                this.setState({
+                    doneList: newDoneList,
+                    todoList: [...this.state.todoList, task[0]]
+
+                })
+
+            }
+
+        }
+
+        const delet = (list, id) => {
+            if (list === 'todo') {
+                const newList = this.state.todoList.filter((items) => items.id !== id)
+                this.setState({
+                    todoList: newList
+                })
+            }
+            else if (list === 'done') {
+                const newList = this.state.doneList.filter((items) => items.id !== id)
+                this.setState({
+                    doneList: newList
+                })
+            }
+            else {
+                const newList = this.state.progressList.filter((items) => items.id !== id)
+                this.setState({
+                    progressList: newList
+                })
+            }
+        }
+
+        const toDone = (from, id) => {
+
+            if (from === 'prog') {
+                let task = this.state.progressList.filter((items) => items.id === id)
+                const newProgList = this.state.progressList.filter((items) => items.id !== id)
+
+
+                this.setState({
+                    progressList: newProgList,
+                    doneList: [...this.state.doneList, task[0]]
+                })
+
+            }
+            else {
+                let task = this.state.todoList.filter((items) => items.id === id)
+                const newTodoList = this.state.todoList.filter((items) => items.id !== id)
+
+
+                this.setState({
+                    todoList: newTodoList,
+                    doneList: [...this.state.doneList, task[0]]
+
+                })
+
+            }
+
+        }
+
+        const archieve = (from, index) => {
+            if (from === 'todo') {
+                this.state.todoList[index].hide = !this.state.todoList[index].hide
+
+                this.setState({
+                    todoList: this.state.todoList
+                })
+            }
+            else if(from === 'done'){
+                this.state.doneList[index].hide = !this.state.doneList[index].hide
+
+                this.setState({
+                    doneList: this.state.doneList
+                })
             }
             else{
-                let task= this.state.doneList.filter((items)=>items.id===id)
-                const newTodoList= this.state.doneList.filter((items)=>items.id!==id)
-                
+                this.state.progressList[index].hide = !this.state.progressList[index].hide
 
                 this.setState({
-                    doneList:newTodoList,
-                    progressList:[...this.state.progressList,task[0]]
-                })
-
-            }
-
-        }
-
-        const toTodo=(from,id)=>{
-
-            if(from==='prog'){
-                let task= this.state.progressList.filter((items)=>items.id===id)
-                const newProgList= this.state.progressList.filter((items)=>items.id!==id)
-                
-
-                this.setState({
-                    progressList:newProgList,
-                    todoList:[...this.state.todoList,task[0]]
-                })
-
-            }
-            else{
-                let task= this.state.doneList.filter((items)=>items.id===id)
-                const newDoneList= this.state.doneList.filter((items)=>items.id!==id)
-                
-
-                this.setState({
-                    doneList:newDoneList,
-                    todoList:[...this.state.todoList,task[0]]
-
-                })
-
-            }
-
-        }
-
-        const delet=(list,id)=>{
-            if(list==='todo'){
-                const newList = this.state.todoList.filter((items)=>items.id!==id)
-                this.setState({
-                    todoList:newList
-                })
-            }
-            else if(list==='done'){
-                const newList = this.state.doneList.filter((items)=>items.id!==id)
-                this.setState({
-                    doneList:newList
-                })
-            }
-            else{
-                const newList = this.state.progressList.filter((items)=>items.id!==id)
-                this.setState({
-                    progressList:newList
-                })
-            }
-        }
-        
-        const toDone=(from,id)=>{
-
-            if(from==='prog'){
-                let task= this.state.progressList.filter((items)=>items.id===id)
-                const newProgList= this.state.progressList.filter((items)=>items.id!==id)
-                
-
-                this.setState({
-                    progressList:newProgList,
-                    doneList:[...this.state.doneList,task[0]]
-                })
-
-            }
-            else{
-                let task= this.state.todoList.filter((items)=>items.id===id)
-                const newTodoList= this.state.todoList.filter((items)=>items.id!==id)
-                
-
-                this.setState({
-                    todoList:newTodoList,
-                    doneList:[...this.state.doneList,task[0]]
-
-                })
-
-            }
-
-        }
-
-        const archieve = (from,index)=>{
-            if(from==='todo'){
-                this.state.todoList[index].hide=true
-                console.log(this.state.todoList);
-
-                this.setState({
-                    todoList:this.state.todoList
+                    progressList: this.state.progressList
                 })
             }
         }
 
-       
+
 
         return (
             <div className="container">
-                <div className="row">
+                <Header search={this.search} changeArchive={this.changeArchive} />
+                <div className="row" style={{marginBottom:"2%"}}>
 
                     <div className="col-lg-5">
                         <div type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -174,30 +205,29 @@ export class Container extends Component {
                         <div className="card card-content-todo shadow-sm p-3 mb-0 bg-body " >
                             <div className="card-body card-body-content">
 
-                                {
-                                    this.state.todoList.filter((items=>items.title.startsWith('a'))).map((items, index) => {
+                                {this.state.todoList.filter((items => items.title.toLowerCase().startsWith(this.state.searchKey.toLowerCase()))).map((items, index) => {
 
-                                        return <div class="dropdown">
-                                            <div type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {items.hide?"archieved":<TodoNotes key={index} items={items} />}
+                                    return <div className="dropdown" key={index}>
+                                        <div type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {this.state.archieve ? (<TodoNotes key={index} items={items} />) : (items.hide ? null : <TodoNotes key={index} items={items} />)}
+                                        </div>
+
+                                        <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
+                                            <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
+                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("todo", items.id) }}>{"Progress > "} </button>
+                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("todo", items.id) }}>{"Done >"} </button>
+
                                             </div>
-                                            
-                                            <ul class='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{border:'none',backgroundOpacity:'10%'}}>
-                                            <li><div class="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                    <button type="button" class="btn btn-outline-warning" onClick={()=>{toProgress("todo",items.id)}}>{"Progress > "} </button>
-                                                    <button type="button" class="btn btn-outline-success" onClick={()=>{toDone("done",items.id)}}>{"Done >"} </button>
-                                                    
-                                                </div>
                                             </li>
                                             <li className='ms-3 ps-2 align-items-center justify-contents-between' >
-                                                <button className='btn btn-outline-success ' onClick={()=>archieve('todo',index)}><i class="bi-archive " ></i></button>
-                                                <button className='btn btn-outline-danger ms-3' onClick={()=>delet('todo',items.id)}><i class="bi-trash " ></i></button>
+                                                <button className='btn btn-outline-success ' onClick={() => archieve('todo', index)}><i className="bi-archive " ></i></button>
+                                                <button className='btn btn-outline-danger ms-3' onClick={() => delet('todo', items.id)}><i className="bi-trash " ></i></button>
                                             </li>
 
-                                            </ul>
-                                            
-                                        </div>
-                                    })
+                                        </ul>
+
+                                    </div>
+                                }) 
                                 }
 
                             </div>
@@ -208,29 +238,29 @@ export class Container extends Component {
                         <div className="card card-content-progress shadow-sm p-3 mb-0 bg-body " >
                             <div className="card-body card-body-content">
 
-                                {
-                                    this.state.progressList.map((items, index) => {
-                                        return <div class="dropdown">
+                                {this.state.progressList.filter((items => items.title.toLowerCase().startsWith(this.state.searchKey.toLowerCase()))).map((items, index) => {
+
+                                    return <div className="dropdown" key={index}>
                                         <div type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <ProgressNotes key={index} items={items} />
+                                            {this.state.archieve ? (<ProgressNotes key={index} items={items} />) : (items.hide ? null : <ProgressNotes key={index} items={items} />)}
                                         </div>
-                                        
-                                        <ul class='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{border:'none',backgroundOpacity:'10%'}}>
-                                        <li><div class="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                <button type="button" class="btn btn-outline-primary" onClick={()=>{toTodo("prog",items.id)}}>{"Todo < "} </button>
-                                                <button type="button" class="btn btn-outline-success" onClick={()=>{toDone("prog",items.id)}}>{"Done >"} </button>
-                                                
+
+                                        <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
+                                            <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("prog", items.id) }}>{"Todo < "} </button>
+                                                <button type="button" className="btn btn-outline-success" onClick={() => { toDone("prog", items.id) }}>{"Done >"} </button>
+
                                             </div>
-                                        </li>
-                                        <li className='ms-3 ps-2 align-items-center justify-contents-between' >
-                                            <button className='btn btn-outline-success '><i class="bi-archive " ></i></button>
-                                            <button className='btn btn-outline-danger ms-3' onClick={()=>delet('prog',items.id)}><i class="bi-trash " ></i></button>
-                                        </li>
+                                            </li>
+                                            <li className='ms-3 ps-2 align-items-center justify-contents-between' >
+                                                <button className='btn btn-outline-success ' onClick={() => archieve('prog', index)}><i className="bi-archive " ></i></button>
+                                                <button className='btn btn-outline-danger ms-3' onClick={() => delet('prog', items.id)}><i className="bi-trash " ></i></button>
+                                            </li>
 
                                         </ul>
-                                        
+
                                     </div>
-                                    })
+                                })
                                 }
 
                             </div>
@@ -242,29 +272,30 @@ export class Container extends Component {
                         <div className="card card-content-done shadow-sm p-3 mb-0 bg-body " >
                             <div className="card-body card-body-content">
 
-                                {
-                                    this.state.doneList.map((items, index) => {
-                                        return <div class="dropdown">
+                                {this.state.doneList.filter((items => items.title.toLowerCase().startsWith(this.state.searchKey.toLowerCase()))).map((items, index) => {
+
+                                    return <div className="dropdown" key={index}>
                                         <div type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <DoneNotes key={index} items={items} />
+                                            {this.state.archieve ? (<DoneNotes key={index} items={items} />) : (items.hide ? null : <DoneNotes key={index} items={items} />)}
                                         </div>
-                                        
-                                        <ul class='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{border:'none',backgroundOpacity:'10%'}}>
-                                        <li><div class="btn-group m-3" role="group" aria-label="Basic outlined example" >
-                                                <button type="button" class="btn btn-outline-primary" onClick={()=>{toTodo("done",items.id)}}>{"Todo < "} </button>
-                                                <button type="button" class="btn btn-outline-warning" onClick={()=>{toProgress("done",items.id)}}>{"Progress <"} </button>
-                                                
+
+                                        <ul className='dropdown-menu align-items-center justify-content-center' aria-labelledby="dropdownMenuButton1" style={{ border: 'none', backgroundOpacity: '10%' }}>
+                                            <li><div className="btn-group m-3" role="group" aria-label="Basic outlined example" >
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => { toTodo("done", items.id) }}>{"Todo <"} </button>
+                                                <button type="button" className="btn btn-outline-warning" onClick={() => { toProgress("done", items.id) }}>{"Progress < "} </button>
+
                                             </div>
-                                        </li>
-                                        <li className='ms-3 ps-2 align-items-center justify-contents-between' >
-                                            <button className='btn btn-outline-success '><i class="bi-archive " ></i></button>
-                                            <button className='btn btn-outline-danger ms-3' onClick={()=>delet('done',items.id)}><i class="bi-trash " ></i></button>
-                                        </li>
+                                            </li>
+                                            <li className='ms-3 ps-2 align-items-center justify-contents-between' >
+                                                <button className='btn btn-outline-success ' onClick={() => archieve('done', index)}><i className="bi-archive " ></i></button>
+                                                <button className='btn btn-outline-danger ms-3' onClick={() => delet('done', items.id)}><i className="bi-trash " ></i></button>
+                                            </li>
 
                                         </ul>
-                                        
+
                                     </div>
-                                    })
+                                })
+
                                 }
 
                             </div>
@@ -282,11 +313,11 @@ export class Container extends Component {
                             <div className="modal-body">
                                 <div className="row" style={{ margin: "5%" }}>
 
-                                    <input type="text" className="form-control" ref={this.titleRef} id="newTitle"  placeholder="Title" aria-label="First name" />
+                                    <input type="text" className="form-control" ref={this.titleRef} id="newTitle" placeholder="Title" aria-label="First name" />
                                 </div>
                                 <div className="row" style={{ margin: "5%" }}>
 
-                                    <textarea type="textarea" className="form-control" ref={this.detailsRef} id="newDetails"  placeholder="Description" aria-label="Last name" />
+                                    <textarea type="textarea" className="form-control" ref={this.detailsRef} id="newDetails" placeholder="Description" aria-label="Last name" />
                                 </div>
                             </div>
 
